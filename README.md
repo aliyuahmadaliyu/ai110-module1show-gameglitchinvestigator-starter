@@ -25,9 +25,9 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [X ] Describe the game's purpose.
+- [X ] Detail which bugs you found.
+- [X ] Explain what fixes you applied.
 
 ## 📸 Demo Walkthrough
 
@@ -38,6 +38,16 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 3. <!-- Describe this step -->
 4. <!-- Describe this step -->
 5. <!-- Add more steps as needed -->
+
+1. User selects "Normal" difficulty (range: 1–100, 8 attempts allowed)
+2. User enters a guess of 40 → Game returns "📈 Go HIGHER!"
+3. User enters a guess of 70 → Game returns "📉 Go LOWER!"
+4. Score decreases by 5 after each wrong guess
+5. User enters a guess of 55 → Game returns "📈 Go HIGHER!"
+6. User enters a guess of 63 → Game returns "🎉 Correct!"
+7. Balloons appear and final score is displayed
+8. User clicks "New Game" — score, attempts, and secret all reset correctly
+
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
