@@ -25,9 +25,9 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [X ] Describe the game's purpose.
-- [X ] Detail which bugs you found.
-- [X ] Explain what fixes you applied.
+- [ X ] Describe the game's purpose.
+- [ X ] Detail which bugs you found.
+- [ X ] Explain what fixes you applied.
 
 ## 📸 Demo Walkthrough
 
@@ -58,6 +58,21 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 # pytest tests/
 # ========================= X passed in 0.XXs =========================
 ```
+
+tests/test_game_logic.py::test_guess_too_high PASSED
+tests/test_game_logic.py::test_guess_too_low PASSED
+tests/test_game_logic.py::test_guess_correct PASSED
+tests/test_game_logic.py::test_parse_valid_guess PASSED
+tests/test_game_logic.py::test_parse_empty_guess PASSED
+tests/test_game_logic.py::test_parse_non_number PASSED
+tests/test_game_logic.py::test_parse_decimal_guess PASSED
+tests/test_game_logic.py::test_score_increases_on_win PASSED
+tests/test_game_logic.py::test_score_decreases_on_wrong_guess PASSED
+tests/test_game_logic.py::test_score_decreases_on_too_low PASSED
+tests/test_game_logic.py::test_easy_range PASSED
+tests/test_game_logic.py::test_normal_range PASSED
+tests/test_game_logic.py::test_hard_range_is_harder_than_normal PASSED
+========================================= 13 passed in 0.18s =========================================
 
 ## 🚀 Stretch Features
 
