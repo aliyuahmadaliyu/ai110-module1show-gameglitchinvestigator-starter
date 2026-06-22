@@ -42,6 +42,12 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+if "last_message" not in st.session_state:
+    st.session_state.last_message = None
+
+if "won_this_round" not in st.session_state:
+    st.session_state.won_this_round = False
+
 st.subheader("Make a guess")
 
 st.info(
@@ -75,8 +81,14 @@ if new_game:
     st.session_state.score = 0
     st.session_state.status = "playing"
     st.session_state.history = []
+    st.session_state.last_message = None
+    st.session_state.won_this_round = False
     st.success("New game started.")
     st.rerun()
+
+if st.session_state.won_this_round:
+    st.balloons()
+    st.session_state.won_this_round = False
 
 if st.session_state.status != "playing":
     if st.session_state.status == "won":
@@ -85,6 +97,17 @@ if st.session_state.status != "playing":
         st.error("Game over. Start a new game to try again.")
     st.stop()
 
+if st.session_state.last_message:
+    msg_type, msg_text = st.session_state.last_message
+    if msg_type == "error":
+        st.error(msg_text)
+    elif msg_type == "hint" and show_hint:
+        st.warning(msg_text)
+    elif msg_type == "won":
+        st.success(msg_text)
+    elif msg_type == "lost":
+        st.error(msg_text)
+
 if submit:
     st.session_state.attempts += 1
 
@@ -92,7 +115,7 @@ if submit:
 
     if not ok:
         st.session_state.history.append(raw_guess)
-        st.error(err)
+        st.session_state.last_message = ("error", err)
     else:
         st.session_state.history.append(guess_int)
 
@@ -100,9 +123,7 @@ if submit:
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
-
-        if show_hint:
-            st.warning(message)
+        st.session_state.last_message = ("hint", message)
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
@@ -111,20 +132,22 @@ if submit:
         )
 
         if outcome == "Win":
-            st.balloons()
             st.session_state.status = "won"
-            st.success(
+            st.session_state.won_this_round = True
+            st.session_state.last_message = ("won",
                 f"You won! The secret was {st.session_state.secret}. "
                 f"Final score: {st.session_state.score}"
             )
         else:
             if st.session_state.attempts >= attempt_limit:
                 st.session_state.status = "lost"
-                st.error(
+                st.session_state.last_message = ("lost",
                     f"Out of attempts! "
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+
+    st.rerun()
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
