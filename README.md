@@ -26,27 +26,43 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ X ] Describe the game's purpose.
+ A number guessing game where the player guesses a secret number within a limited number of attempts. After each guess, the game gives a hint (Too High or Too Low) to guide the next guess. The player wins by guessing correctly before running out of attempts.
+
 - [ X ] Detail which bugs you found.
+- Hints were backwards: the game said "Go HIGHER" when the guess was too high and "Go LOWER" when too low.
+- The secret number was randomly converted to a string on even attempts, causing wrong comparisons.
+- Hard difficulty had a range of 1–50, which is easier than Normal's 1–100.
+- Wrong guesses gave +5 bonus points on even attempts instead of always deducting points.
+
 - [ X ] Explain what fixes you applied.
+- Fixed hint messages in check_guess() so Too High → Go LOWER and Too Low → Go HIGHER.
+- Removed the string conversion bug in app.py so the secret stays an integer.
+- Updated Hard difficulty range to 1–200 so it is genuinely harder than Normal.
+- Fixed update_score() to always deduct 5 points for any wrong guess.
+- Moved all logic functions into logic_utils.py and updated app.py to import from it.
+
 
 ## 📸 Demo Walkthrough
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. <!-- Describe this step -->  User selects Normal difficulty (range: 1–100, and attempts allowed)
 
-1. User selects "Normal" difficulty (range: 1–100, 8 attempts allowed)
-2. User enters a guess of 40 → Game returns "📈 Go HIGHER!"
-3. User enters a guess of 70 → Game returns "📉 Go LOWER!"
-4. Score decreases by 5 after each wrong guess
-5. User enters a guess of 55 → Game returns "📈 Go HIGHER!"
-6. User enters a guess of 63 → Game returns "🎉 Correct!"
-7. Balloons appear and final score is displayed
-8. User clicks "New Game" — score, attempts, and secret all reset correctly
+2. <!-- Describe this step --> User enters a guess of 40, Game returns "Go Higher"
+
+3. <!-- Describe this step --> User enters a guess of 70, Game returns "Go Higher"
+
+4. <!-- Describe this step --> User enters a guess of 55, Game returns "Go Higher"
+
+5. <!-- Add more steps as needed -->  User enters a guess of 63, Game returns correct
+
+6. Balloons appear and final score is displayed
+
+7.  User clicks New Game. Then score, attempts, and secret all reset correctly
+
+8. Score decreases by 5 after each wrong guess
+
+
 
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
@@ -58,7 +74,7 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 # pytest tests/
 # ========================= X passed in 0.XXs =========================
 ```
-
+My Answer:
 tests/test_game_logic.py::test_guess_too_high PASSED
 tests/test_game_logic.py::test_guess_too_low PASSED
 tests/test_game_logic.py::test_guess_correct PASSED
